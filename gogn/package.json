@@ -1,0 +1,14 @@
+﻿{
+  "name": "verkefni-7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "browser-sync": "browser-sync start --server --files *.html *.css scripts.js"
+  },
+  "author": "Birgir",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.13"
+  }
+}

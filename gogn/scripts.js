@@ -1,4 +1,3 @@
-
 /**
  * Verkefni 7 – Gisk leikur
  *
@@ -22,6 +21,10 @@ var games = [];
  */
 function start() {
   play();
+  while (confirm('Viltu spila annan leik?') === true) {
+    play();
+  }
+  getResults();
 }
 
 /**
@@ -39,8 +42,23 @@ function start() {
  * Þarf að útfæra með lykkju og flæðistýringum.
  */
 function play() {
-  // næsta lína kastar villu sem má sjá í "console" undir DevTools
-  var random = randomNumber(
+  var guessraw;
+  var guess;
+  var counter = 0;
+  var correct = randomNumber(100);
+  while (guessraw !== correct) {
+    guessraw = prompt('Giskaðu á tölu');
+    if (guessraw === null) {
+      break;
+    }
+    guess = parseGuess(guessraw);
+    getResponse(guess, correct);
+    counter = counter + 1;
+    if (guess === correct) {
+      games.push(counter);
+      break;
+    }
+  }
 }
 
 /**
@@ -52,6 +70,12 @@ function play() {
  * Ef enginn leikur var spilaður er "Þú spilaðir engan leik" skilað.
  */
 function getResults() {
+  var average = calculateAverage(games);
+  if (games.length === 0) {
+    alert('Þú spilaðir engan leik');
+  } else {
+    alert('Þú spilaðir ' + games.length + ' leiki.\nMeðalfjöldi ágiskanna var ' + average);
+  }
 }
 
 /**
@@ -63,7 +87,13 @@ function getResults() {
  *
  * Þarf að útfæra með lykkju.
  */
-function calculateAverage() {
+function calculateAverage(n) {
+  var sum = 0;
+  for (var i = 0; i < n.length; i++) {
+    sum = sum + n[i];
+  }
+  var average = sum / n.length;
+  return average;
 }
 
 /**
@@ -71,6 +101,12 @@ function calculateAverage() {
  * Ef ekki er hægt að ná tölu úr input er null skilað.
  */
 function parseGuess(input) {
+  var number = parseInt(input, 10);
+  if (number <= 0 || number > 0) {
+    return number;
+  } else {
+    return null;
+  }
 }
 
 /**
@@ -89,7 +125,27 @@ function parseGuess(input) {
  * Math.abs skilar algildi tölu: |a| = Math.abs(a)
  */
 function getResponse(guess, correct) {
-  return 'Ekki rétt';
+  var diff = Math.abs(guess - correct);
+  if (guess < 0 || guess == null) {
+    return alert('Ekki rétt');
+  }
+  if (guess === correct) {
+    return alert('Rétt');
+  }
+  if (diff < 5) {
+    return alert('Mjög nálægt');
+  }
+  if (diff < 10) {
+    return alert('Nálægt');
+  }
+  if (diff < 20) {
+    return alert('Frekar langt frá');
+  }
+  if (diff < 50) {
+    return alert('Langt frá');
+  } else {
+    return alert('Mjög langt frá');
+  }
 }
 
 /**

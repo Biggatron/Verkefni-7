@@ -89,10 +89,10 @@ function getResults() {
  */
 function calculateAverage(n) {
   var sum = 0;
-  for (var i = 0; i < n.length; i++) {
+  for (var i=0; i<n.length; i++) {
     sum = sum + n[i];
   }
-  var average = sum / n.length;
+  var average = (sum/n.length).toFixed(2);
   return average;
 }
 

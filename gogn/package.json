@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "browser-sync": "bs start --server --files *.html *.css scripts.js"
+    "browser-sync": "browser-sync start --server --files *.html *.css scripts.js"
   },
   "author": "Birgir",
   "license": "ISC",
